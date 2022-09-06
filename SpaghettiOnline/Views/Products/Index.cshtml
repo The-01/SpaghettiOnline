@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Product>
+@using SpaghettiOnline.Infrastructure
+
+@{
+    ViewData["Title"] = "Products";
+
+    PaginationBar pageBar = new PaginationBar();
+
+    int pageNo = 0;
+
+    if (ViewBag.PaginationBar != null)
+    {
+        pageBar = ViewBag.PaginationBar;
+        pageNo = pageBar.CurrentPage;
+    }
+}
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-3">
+        <div class="row mb-5">
+            <h2 class="ml-3"><b>All Products</b></h2>
+        </div>
+        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+
+            @foreach (var item in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top embed-responsive" src="~/media/products/@item.Image" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="font-weight-bold">@item.Name</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    @if (item.IsPopular)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    }
+                                </div>
+                                <!-- Product description-->
+                                <div class="d-flex justify-content-center small text-dark mb-2">
+                                    @Html.Raw(item.Description)
+                                </div>
+                                <!-- Product price-->
+                                Rs @item.Price
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto add-to-cart" asp-controller="Cart" asp-action="AddItems" asp-route-id="@item.Id" data-id="@item.Id">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!--Pagination Bar-->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-auto">
+                @if (pageBar.TotalPages > 0)
+                {
+                    <ul class="pagination">
+                        @if (pageBar.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a asp-controller="Products" asp-action="Index" class="page-link text-decoration-none" asp-route-p="1">
+                                    First
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a asp-controller="Products" asp-action="Index" class="page-link text-decoration-none" asp-route-p="@(pageBar.CurrentPage-1)">
+                                    Previous
+                                </a>
+                            </li>
+                        }
+                        @for (var page = pageBar.StartPage; page <= pageBar.EndPage; page++)
+                        {
+                            <li class="page-item @(page == pageBar.CurrentPage ? "active" : "")">
+                                <a asp-controller="Products" asp-action="Index" class="page-link text-decoration-none" asp-route-p="@(page)">
+                                    @(page)
+                                </a>
+                            </li>
+                        }
+                        @if (pageBar.CurrentPage < pageBar.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a asp-controller="Products" asp-action="Index" class="page-link text-decoration-none" asp-route-p="@(pageBar.CurrentPage+1)">
+                                    Next
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a asp-controller="Products" asp-action="Index" class="page-link text-decoration-none" asp-route-p="@pageBar.TotalPages">
+                                    Last
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <script>
+      $("a.add-to-cart").click(function () {
+        document.location = '@Url.Action("Login","Account")';
+      });
+        </script>
+    }
+
+    <script>
+        $(function () {
+            $("a.add-to-cart").click(function (e) {
+                e.preventDefault();
+
+                let id = $(this).data("id");
+                $.get("/cart/additems/" + id, {}, function (data) {
+                    $("span.cart-nav-item").html(data);
+                });
+            });
+        });
+    </script>
+}

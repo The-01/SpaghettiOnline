@@ -1,0 +1,22 @@
+﻿@model CartNavItem
+
+@if (Model != null)
+{
+    <form class="form-inline my-2 my-lg-0">
+        <a class="btn btn-outline-dark" asp-area="" asp-controller="Cart" asp-action="Index">
+            <i class="fa fa-shopping-cart"></i>&nbsp;
+            Cart
+            <span class="badge bg-dark text-white ms-1 rounded-pill">@Model.NumberOfItems</span>
+        </a>
+    </form>
+}
+else
+{
+    <form class="form-inline my-2 my-lg-0">
+        <a class="btn btn-outline-dark" asp-area="" asp-controller="Cart" asp-action="Index">
+            <i class="fa fa-shopping-cart"></i>&nbsp;
+            Cart
+            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+        </a>
+    </form>
+}

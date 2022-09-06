@@ -1,0 +1,78 @@
+﻿@model RoleEdit
+
+@{
+    ViewData["Title"] = "Edit Role";
+}
+
+<form asp-action="Edit" method="post">
+    <div class="container p-3">
+        <div class="border p-3">
+            <h1 class="h2 mb-3">Edit Role</h1>
+            <hr /><br />
+
+            <div asp-validation-summary="All"></div>
+            <input name="RoleName" value="@Model.Role.Name" hidden />
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="mb-3">Promote members to <span class="badge badge-primary">@Model.Role.Name</span></h4>
+                    <table class="table table-bordered">
+                        @if (Model.NonMembers.Count() == 0)
+                        {
+                            <tr>
+                                <td>
+                                    No members are currently in this role!
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (AppUser user in Model.NonMembers)
+                            {
+                                <tr>
+                                    <td>
+                                        @user.UserName
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="AddIds" value="@user.Id" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                <div class="col-6">
+                    <h4 class="mb-3">Demote members from <span class="badge badge-primary">@Model.Role.Name</span></h4>
+                    <table class="table table-bordered">
+                        @if (Model.Members.Count() == 0)
+                        {
+                            <tr>
+                                <td>
+                                    No members are currently in this role!
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (AppUser user in Model.Members)
+                            {
+                                <tr>
+                                    <td>
+                                        @user.UserName
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="DeleteIds" value="@user.Id" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
+            <a asp-controller="Roles" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>

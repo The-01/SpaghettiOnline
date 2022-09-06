@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Page>
+
+@foreach (var item in Model)
+{
+    @if (item.Slug == "categories")
+    {
+        @await Component.InvokeAsync("Categories")
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Pages" asp-action="Page" asp-route-slug="@item.Slug">@item.Title</a>
+        </li>
+    }
+}

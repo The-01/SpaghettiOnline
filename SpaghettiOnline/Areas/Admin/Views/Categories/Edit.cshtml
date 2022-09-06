@@ -1,0 +1,32 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<form asp-action="Edit" method="post">
+    <div class="container p-3">
+        <div class="border p-3">
+            <h1 class="h2 mb-3">Edit Category</h1>
+            <hr /><br />
+
+            <div asp-validation-summary="All"></div>
+            <input asp-for="DisplayOrder" hidden />
+            <div class="mb-3">
+                <label asp-for="Name" class="col-form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Edit</button>
+            <a asp-controller="Categories" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

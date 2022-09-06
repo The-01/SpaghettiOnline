@@ -1,0 +1,30 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Create Role";
+}
+
+<form asp-action="Create" method="post">
+    <div class="container p-3">
+        <div class="border p-3">
+            <h1 class="h2 mb-3">Create Role</h1>
+            <hr /><br />
+
+            <div asp-validation-summary="All"></div>
+            <div class="mb-3">
+                <label class="col-form-label"></label>
+                <input type="text" name="Name" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+            <a asp-controller="Roles" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

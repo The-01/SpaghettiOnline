@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-3">
+        <div class="row mb-5">
+            <h2 class="ml-3"><b>@ViewBag.CategoryName</b></h2>
+        </div>
+        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+
+            @foreach (var item in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top embed-responsive" src="~/media/products/@item.Image" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="font-weight-bold">@item.Name</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    @if (item.IsPopular)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    }
+                                </div>
+                                <!-- Product description-->
+                                <div class="d-flex justify-content-center small text-dark mb-2">
+                                    @Html.Raw(item.Description)
+                                </div>
+                                <!-- Product price-->
+                                Rs @item.Price
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto add-to-cart" asp-controller="Cart" asp-action="AddItems" asp-route-id="@item.Id" data-id="@item.Id">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("a.add-to-cart").click(function (e) {
+                e.preventDefault();
+
+                let id = $(this).data("id");
+                $.get("/cart/additems/" + id, {}, function (data) {
+                    $("span.cart-nav-item").html(data);
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿@model Page
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container p-3">
+    <div class="border p-3">
+        <h1 class="h3 mb-0 text-gray-800">Page Details</h1>
+        <hr /><br />
+
+        <div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Id
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Id
+                </dd>
+                <dt class="col-sm-2">
+                    Title
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Title
+                </dd>
+                <dt class="col-sm-2">
+                    Slug
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Slug
+                </dd>
+                <dt class="col-sm-2">
+                    Content
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(Model.Content)
+                </dd>
+                <dt class="col-sm-2">
+                    Display Order
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.DisplayOrder
+                </dd>
+                <dt class="col-sm-2">
+                    Date
+                </dt>
+                <dd>
+                    @Model.CreatedDateTime.ToString("ddd, dd MMM yyyy")
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-controller="Pages" asp-action="Edit" class="btn btn-info mx-1" style="width:150px" asp-route-id="@Model.Id">Edit</a>
+            <a asp-controller="Pages" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</div>

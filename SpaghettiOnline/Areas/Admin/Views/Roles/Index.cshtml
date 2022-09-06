@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "Manage Roles";
+    <!-- Custom styles for this page -->
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Roles</h1>
+</div>
+
+<!-- Data Tables-->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="m-0 font-weight-bold text-primary">Manage Roles</h5>
+            </div>
+            <div class="col-6 text-right">
+                <a asp-controller="Roles" asp-action="Create" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New Role
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered sorted" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model)
+                    {
+                        <tr>
+                            <td>
+                                @role.Id
+                            </td>
+                            <td user-role="@role.Id"></td>
+                            <td>
+                                @role.Name
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-controller="Roles" asp-action="Edit" class="btn btn-sm btn-info mx-1" asp-route-id="@role.Id"><i class="fa fa-pen-square fa-sm text-white-50"></i> Edit</a>
+                                    <a asp-controller="Roles" asp-action="Delete" class="btn btn-sm btn-danger mx-1" asp-route-id="@role.Id"><i class="fa fa-trash fa-sm text-white-50"></i> Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

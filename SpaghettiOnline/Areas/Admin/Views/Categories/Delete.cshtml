@@ -1,0 +1,54 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<form asp-action="Delete" method="post">
+    <div class="container p-3">
+        <div class="border p-3">
+            <h1 class="h2 mb-3">Delete Category</h1>
+            <hr /><br />
+
+            <input asp-for="Id" hidden />
+            <div>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        Id
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.Id
+                    </dd>
+                    <dt class="col-sm-2">
+                        Name
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.Name
+                    </dd>
+                    <dt class="col-sm-2">
+                        Slug
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.Slug
+                    </dd>
+                    <dt class="col-sm-2">
+                        Display Order
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.DisplayOrder
+                    </dd>
+                    <dt class="col-sm-2">
+                        Date
+                    </dt>
+                    <dd>
+                        @Model.CreatedDateTime.ToString("ddd, dd MMM yyyy")
+                    </dd>
+                </dl>
+            </div>
+            <button id="confirm-deletion" type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+            <a asp-controller="Categories" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>

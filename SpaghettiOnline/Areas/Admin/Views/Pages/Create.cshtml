@@ -1,0 +1,40 @@
+﻿@model Page
+
+@{
+    ViewData["Title"] = "Create Page";
+}
+
+<form asp-action="Create" method="post">
+    <div class="container p-3">
+        <div class="border p-3">
+            <h1 class="h3 mb-0 text-gray-800">Create Page</h1>
+            <hr /><br />
+
+            <div asp-validation-summary="All"></div>
+            <div class="mb-3">
+                <label asp-for="Title" class="col-form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Content" class="col-form-label"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+            <a asp-controller="Pages" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        CKEDITOR.replace("Content")
+    </script>
+}

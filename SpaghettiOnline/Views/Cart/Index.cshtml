@@ -1,0 +1,76 @@
+﻿@model CartViewModel
+
+@{
+    ViewData["Title"] = "Cart Overview";
+}
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row mb-3">
+            <h3><b>Cart Overview</b></h3>
+        </div>
+
+        @if (Model.CartItems.Count > 0)
+        {
+            <div class="cart-wrapper">
+                <div class="cart-bg d-none">
+                    <h3 class="text-center">Redirecting you to paypal...</h3>
+                    <img src="~/media/static/loading.gif" />
+                </div>
+                <table class="table">
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>Rs. @item.Price /-</td>
+                            <td>Rs. @Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.Price) /-</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary navbar-text" asp-action="AddItems" asp-route-id="@item.ProductId">+</a>
+                                <a class="btn btn-sm btn-warning navbar-text" asp-action="DropItems" asp-route-id="@item.ProductId">-</a>
+                                <a class="btn btn-sm btn-danger navbar-text" asp-action="RemoveItems" asp-route-id="@item.ProductId">Remove</a>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="text-right" colspan="12"><h5 class="text-gray-800"><strong>Grand Total: Rs. @Model.GrandTotal /-</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="12">
+                            <a class="btn btn-sm btn-outline-danger text-uppercase px-2 mb-5" asp-action="ClearCart">Clear Cart</a>
+                            <a class="btn btn-sm btn-outline-info text-uppercase px-2 mb-5 checkout" href="#">Checkout</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="display-4 text-center">Your cart is empty!</p>
+        }
+    </div>
+</section>
+
+<partial name="~/Views/Cart/_PaypalPartial.cshtml" for="CartItems" />
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("a.checkout").click(function (e) {
+                e.preventDefault();
+                $("div.cart-bg").removeClass("d-none");
+
+                $.get("/cart/clearcart", {}, function () {
+                    $("form.checkout-form").submit();
+                });
+            });
+        });
+    </script>
+}

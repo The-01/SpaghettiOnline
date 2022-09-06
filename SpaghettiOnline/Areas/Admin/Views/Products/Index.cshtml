@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Manage Products";
+
+    <!-- Custom styles for this page -->
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Products</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="generateReport">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </a>
+</div>
+
+<!-- Data Tables-->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="m-0 font-weight-bold text-primary">Manage Products</h5>
+            </div>
+            <div class="col-6 text-right">
+                <a asp-controller="Products" asp-action="Create" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New Product
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered sorted" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/media/products/@item.Image" width="70" height="50" style="border-radius:100%;" />
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.Category.Name
+                            </td>
+                            <td>
+                                Rs. @item.Price /-
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-controller="Products" asp-action="Edit" class="btn btn-sm btn-info mx-1" asp-route-id="@item.Id"><i class="fa fa-pen-square fa-sm text-white-50"></i> Edit</a>
+                                    <a asp-controller="Products" asp-action="Details" class="btn btn-sm btn-secondary mx-1" asp-route-id="@item.Id"><i class="fa fa-list-alt fa-sm text-white-50"></i> Detail</a>
+                                    <a asp-controller="Products" asp-action="Delete" class="btn btn-sm btn-danger mx-1" asp-route-id="@item.Id"><i class="fa fa-trash fa-sm text-white-50"></i> Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("#generateReport").click(function () {
+            window.open('../admin/products/generatereport?param=1', '_blank');
+        });
+    </script>
+    <!-- Page level plugins -->
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="~/js/demo/datatables-demo.js"></script>
+}

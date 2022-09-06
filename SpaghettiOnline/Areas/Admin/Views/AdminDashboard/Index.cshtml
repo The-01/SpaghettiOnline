@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </a>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Total Pages -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Pages
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalPages</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-folder fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <hr />
+                <div class="row no-gutters align-items-center" style="font-family: Segoe UI">
+                    <a asp-area="Admin" asp-controller="Pages" asp-action="Index" class="btn btn-sm btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Total Categories -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Categories
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalCategories</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-th-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <hr />
+                <div class="row no-gutters align-items-center" style="font-family: Segoe UI">
+                    <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="btn btn-sm btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Total Products -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Products
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalProducts</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-th-large fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <hr />
+                <div class="row no-gutters align-items-center" style="font-family: Segoe UI">
+                    <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="btn btn-sm btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Total Users -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Users
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalUsers</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <hr />
+                <div class="row no-gutters align-items-center" style="font-family: Segoe UI">
+                    <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="btn btn-sm btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Roles -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Roles
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.Roles</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-wrench fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <hr />
+                <div class="row no-gutters align-items-center" style="font-family: Segoe UI">
+                    <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="btn btn-sm btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

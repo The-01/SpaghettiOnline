@@ -1,0 +1,78 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="container p-3">
+        <div class="border p-3">
+            <h1 class="h2 mb-3">Edit Product</h1>
+            <hr /><br />
+
+            <div asp-validation-summary="All"></div>
+            <input asp-for="Image" hidden />
+            <div class="mb-3">
+                <label asp-for="Name" class="col-form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="col-form-label"></label>
+                <select asp-for="CategoryId" asp-items="@ViewBag.CategoryId" class="form-control">
+                    <option selected>Choose a category</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="col-form-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Price" class="col-form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="col-sm-2 mb-3">
+                <label asp-for="Image" class="col-form-label">Current Image</label>
+                <img src="~/media/products/@Model.Image" width="150" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Image" class="col-form-label">New Image</label>
+                <input asp-for="ImageUpload" class="form-control" onchange="readURL(event)" />
+                <img id="image-preview" class="pt-2" />
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input asp-for="IsPopular" type="checkbox" class="custom-control-input" />
+                <label asp-for="IsPopular" class="custom-control-label"></label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Edit</button>
+            <a asp-controller="Products" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        CKEDITOR.replace("Description");
+
+        const readURL = e => {
+            const reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+            reader.onload = () => {
+                const preview = document.getElementById('image-preview');
+                preview.style.width = ((132*screen.width)/1200) + 'px';
+                preview.style.height = ((100*screen.height)/800) + 'px';
+                preview.src = reader.result;
+            };
+        };
+    </script>
+}

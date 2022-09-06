@@ -1,0 +1,17 @@
+﻿@{
+    int count = 1;
+}
+
+<form class="checkout-form" action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="upload" value="1">
+    <input type="hidden" name="business" value="spaghettionline@business.com">
+    @foreach (var item in Model)
+    {
+        <input type="hidden" name="item_name_@count" value="@item.ProductName">
+        <input type="hidden" name="amount_@count" value="@(item.Price/(decimal)230.0)">
+        <input type="hidden" name="quantity_@count" value="@item.Quantity">
+        count++;
+    }
+    <input type="hidden" name="currency_code" value="USD">
+</form>

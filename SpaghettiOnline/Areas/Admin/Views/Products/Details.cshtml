@@ -1,0 +1,71 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container p-3">
+    <div class="border p-3">
+        <h1 class="h2 mb-3">Product Details</h1>
+        <hr /><br />
+
+        <div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Id
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Id
+                </dd>
+                <dt class="col-sm-2">
+                    Name
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Name
+                </dd>
+                <dt class="col-sm-2">
+                    Category
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Category.Name
+                </dd>
+                <dt class="col-sm-2">
+                    Description
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(Model.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    Price
+                </dt>
+                <dd class="col-sm-10">
+                    Rs. @Model.Price /-
+                </dd>
+                <dt class="col-sm-2">
+                    Image
+                </dt>
+                <dd class="col-sm-10">
+                    <img src="~/media/products/@Model.Image" width="150" />
+                </dd>
+                <dt class="col-sm-2">
+                    Slug
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Slug
+                </dd>
+                <dt class="col-sm-2">
+                    Date
+                </dt>
+                <dd>
+                    @Model.CreatedDateTime.ToString("ddd, dd MMM yyyy")
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-controller="Products" asp-action="Edit" class="btn btn-info mx-1" style="width:150px" asp-route-id="@Model.Id">Edit</a>
+            <a asp-controller="Products" asp-action="Index" class="btn btn-light" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</div>
